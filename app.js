@@ -1,8 +1,14 @@
 // Submission effect
-document.querySelector('#loan-form').addEventListener('submit',calResults);
+document.querySelector('#loan-form').addEventListener('submit',function(e){
+  document.querySelector('#results').style.display = 'none';
+  document.querySelector('#loader').style.display = 'block';
+
+  setTimeout(calResults,2000);
+  e.preventDefault();
+});
 
 // Results Calculation
-function calResults(e){
+function calResults(){
   // UI Variables
   const amount = document.querySelector('#amount');
   const interest = document.querySelector('#interest');
@@ -23,15 +29,20 @@ function calResults(e){
     monthlyPayment.value = monthly.toFixed(2);
     totalPayment.value = (monthly*calPayments).toFixed(2);
     totalInterest.value = ((monthly*calPayments)-principal).toFixed(2);
+    // Results showing
+    document.querySelector('#results').style.display = 'block';
+    document.querySelector('#loader').style.display = 'none';
    }else {
     showError('Check Your Entities');
    } 
   
-  e.preventDefault()
+  
 }
 
 // Error
 function showError(error){
+  document.querySelector('#results').style.display = 'none';
+    document.querySelector('#loader').style.display = 'none';
   // creating an element
   const errorDiv = document.createElement('div');
   // Getting Elements
@@ -47,7 +58,7 @@ function showError(error){
   card.insertBefore(errorDiv,heading);
 
   // clear error 
-  setTimeout(clearError,3000);
+  setTimeout(clearError,2000);
 }
 function clearError(){
   document.querySelector('.alert').remove();
