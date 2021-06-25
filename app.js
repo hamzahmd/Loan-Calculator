@@ -24,9 +24,32 @@ function calResults(e){
     totalPayment.value = (monthly*calPayments).toFixed(2);
     totalInterest.value = ((monthly*calPayments)-principal).toFixed(2);
    }else {
-    
-   }
+    showError('Check Your Entities');
+   } 
   
   e.preventDefault()
+}
+
+// Error
+function showError(error){
+  // creating an element
+  const errorDiv = document.createElement('div');
+  // Getting Elements
+  const card = document.querySelector('.card');
+  const heading = document.querySelector('.heading'); 
+
+  errorDiv.className= 'alert alert-danger';
+
+  // Create text node and append to div
+  errorDiv.appendChild(document.createTextNode(error));
+
+  // Inserting Error above heading
+  card.insertBefore(errorDiv,heading);
+
+  // clear error 
+  setTimeout(clearError,3000);
+}
+function clearError(){
+  document.querySelector('.alert').remove();
 
 }
